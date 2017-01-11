@@ -72,4 +72,5 @@ int main(int argc, char** argv)
     }
     printf("ciphertext: %s\n", s);
   }
+  return 0;
 }
