@@ -12,37 +12,41 @@ int main(int argc, string argv[])
     printf("Usage: ./caesar k\n");
     return 1;
   }
-  else
-  { 
-    int k = atoi(argv[1]) % 26;
-    
-    if (k <= 0)
+
+  int k = atoi(argv[1]) % 26;
+  
+  if (k <= 0)
+  {
+    printf("k must be a positive integer and not a power of 26\n");
+    return 1;
+  }
+  
+  //Prompts the user for a string to encipher
+  printf("plaintext: ");
+  string s = get_string();
+  
+  //Checks to make sure s is not null.
+  if (s != NULL)
+  {
+    //Loops over plain_text after getting the length of s.
+    for(int i = 0, n = strlen(s); i < n; i++)
     {
-      printf("k must be a positive integer and not a power of 26\n");
-      return 2;
-    }
-    //Prompts the user for a string to encipher
-    printf("plaintext: ");
-    string s = get_string();
-    
-    //Checks to make sure s is not null.
-    if (s != NULL)
-    {
-      //Loops over plain_text after getting the length of s.
-      for(int i = 0, n = strlen(s); i < n; i++)
+      //If the current character is not a letter, continue the loop.
+      if (!isalpha(s[i]))
       {
-        //If adding k to current char will take it over Z or z (upper or lower respectively) wrap it around
-        if ((isupper(s[i]) && s[i] + k >= 'Z') || (islower(s[i]) && s[i] + k >= 'z'))
-        {
-          s[i] -= (26 - k);
-        }
-        //Otherwise adds k to the int value of the current character
-        else if (islower(s[i]) || isupper(s[i]))
-        {
-          s[i] += k;
-        }
+        continue;
       }
-      printf("ciphertext: %s\n", s);
+      
+      //If adding k to current char will take it over Z or z (upper or lower respectively) wrap it around - mod k by the correct value to properly encipher.
+      if ((isupper(s[i]) && s[i] + k >= 'Z') || (islower(s[i]) && s[i] + k >= 'z'))
+      {
+        s[i] -= 26 - k;
+      }
+      else
+      {
+        s[i] += k;
+      }
     }
+    printf("ciphertext: %s\n", s);
   }
 }
