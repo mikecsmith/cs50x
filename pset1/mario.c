@@ -14,13 +14,11 @@ int main(void)
     while(n < 0 || n > 23);
     
     int spaces = n - 1;
-    int hashes = 1;
+    int hashes = 2;
     
     for(int i = 0; i < n; i++)
     {
         mprint(' ', spaces);
-        mprint('#', hashes);
-        printf("  ");
         mprint('#', hashes);
         printf("\n");
         hashes++;
